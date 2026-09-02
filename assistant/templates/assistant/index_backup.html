@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ubuntu AI Assistant</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .chat-box {
+            min-height: 250px;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+
+        .assistant-message {
+            background: #eeeeee;
+            padding: 12px;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #333;
+            color: white;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🤖 Ubuntu AI Assistant</h1>
+
+    <div class="chat-box">
+
+        {% if response %}
+            <div class="assistant-message">
+                <strong>Assistant:</strong><br>
+                {{ response|safe }}
+            </div>
+        {% else %}
+            <div class="assistant-message">
+                <strong>Assistant:</strong><br>
+                Hello! How can I help you?
+            </div>
+        {% endif %}
+
+    </div>
+
+    <form method="POST" onsubmit="showLoading()">
+        {% csrf_token %}
+
+        <div class="input-area">
+            <input
+                type="text"
+                name="message"
+                placeholder="Ask something..."
+                required
+            >
+
+            <button type="submit">Send</button>
+        </div>
+    </form>
+
+</div>
+<script>
+    function showLoading() {
+        const button = document.querySelector("button");
+        button.innerText = "Thinking...";
+        button.disabled = true;
+    }
+</script>
+
+</body>
+</html>

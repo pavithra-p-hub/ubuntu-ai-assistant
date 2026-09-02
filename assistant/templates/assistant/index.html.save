@@ -1,0 +1,88 @@
+===<!DOCTYPE html>
+<html>
+<head>
+    <title>Ubuntu AI Assistant</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .chat-box {
+            min-height: 250px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🤖 Ubuntu AI Assistant</h1>
+
+    <div class="chat-box">
+
+        {% if response %}
+            <p><strong>Assistant:</strong> {{ response|safe }}</p>
+        {% else %}
+            <p><strong>Assistant:</strong> Hello! How can I help you?</p>
+        {% endif %}
+
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="input-area">
+            <input
+                type="text"
+                name="message"
+                placeholder="Ask something..."
+                required
+            >
+
+            <button type="submit">Send</button>
+        </div>
+    </form>
+
+</div>
+
+</body>
+</html>
