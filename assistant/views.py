@@ -125,30 +125,20 @@ def get_wifi_status():
     return "No Wi-Fi connection found."
 
 def ask_local_ai(user_message):
-    try:
-        response = requests.post(
-            "http://localhost:11434/api/generate",
-            json={
-                "model": "qwen2.5:1.5b",
-                "prompt": user_message,
-                "stream": False
-            },
-            timeout=30
-        )
-
-        response.raise_for_status()
-
-        data = response.json()
-        return data["response"]
-
-    except requests.exceptions.ConnectionError:
-        return "AI service is not running. Please start Ollama."
-
-    except requests.exceptions.Timeout:
-        return "AI is taking too long to respond. Please try again."
-
-    except Exception:
-        return "Sorry, I couldn't process your request right now."
+    response = requests.post(
+        "http://localhost:11434/api/generate",
+        json={
+            "model": "qwen2.5:1.5b",
+            "prompt": user_message,
+            "stream": False,
+            "options": {
+                "num_predict": 100
+            }
+        },
+        timeout=60
+    )
+    data = response.json()
+    return data["response"]
 
 def home(request):
     response = None
