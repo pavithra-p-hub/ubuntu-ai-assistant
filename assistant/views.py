@@ -136,7 +136,7 @@ def ask_local_ai(user_message):
                 "contents": [
                     {
                         "parts": [
-                            {"text": user_message}
+                            {"text": user_message + "\nAnswer briefly and clearly. Keep the response under 100 words."}
                         ]
                     }
                 ]
