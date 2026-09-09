@@ -125,6 +125,28 @@ def get_wifi_status():
     return "No Wi-Fi connection found."
 
 def ask_local_ai(user_message):
+    if settings.GEMINI_API_KEY:
+        response = requests.post(
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+            headers={
+                "x-goog-api-key": settings.GEMINI_API_KEY,
+                "Content-Type": "application/json"
+            },
+            json={
+                "contents": [
+                    {
+                        "parts": [
+                            {"text": user_message}
+                        ]
+                    }
+                ]
+            },
+            timeout=60
+        )
+
+        data = response.json()
+        return data["candidates"][0]["content"]["parts"][0]["text"]
+
     response = requests.post(
         "http://localhost:11434/api/generate",
         json={
@@ -137,6 +159,7 @@ def ask_local_ai(user_message):
         },
         timeout=60
     )
+
     data = response.json()
     return data["response"]
 
