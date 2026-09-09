@@ -145,6 +145,9 @@ def ask_local_ai(user_message):
         )
 
         data = response.json()
+
+        if "candidates" not in data:
+            return f"Gemini API error: {data.get('error', {}).get('message', 'Unknown error')}"
         return data["candidates"][0]["content"]["parts"][0]["text"]
 
     response = requests.post(
