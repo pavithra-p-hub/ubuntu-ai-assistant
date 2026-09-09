@@ -127,7 +127,7 @@ def get_wifi_status():
 def ask_local_ai(user_message):
     if settings.GEMINI_API_KEY:
         response = requests.post(
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent",
             headers={
                 "x-goog-api-key": settings.GEMINI_API_KEY,
                 "Content-Type": "application/json"
